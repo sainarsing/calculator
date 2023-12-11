@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #4f656f;
+}
+#calculator {
+    background-color: #000000;
+    /* padding: 20px; */
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column
+   
+}
+button {
+    width: 60px;
+    height: 60px;
+    border: none;
+    border-radius: 5px;
+    margin: 2px;
+    font-size: 2em;
+    background-color: #000;
+    color: white;
+}
+#result {
+    height: 60px;
+    text-align: right;
+    padding-right: 10px;
+    font-size: 2em;
+}
+</style>
+</head>
+<body>
+
+<div id="calculator">
+<div id="input-ac" style="display:flex; justify-content: space-between; background-color: aqua;">
+<input style="background-color: white; color: #000;" id="result" type="text" disabled/>
+<button style="color: white;background-color: aqua; padding: 10px;" onclick="clearResult()">AC</button>
+</div>
+<div style="display:flex; flex-direction: row; justify-content: space-between;">
+    <div id="numbers" style="background-color: #000; display:flex; flex-wrap: wrap; flex-direction: column; justify-content: space-between; width: 406px;">
+        <div style="display:flex; justify-content: space-between;" >
+            <button onclick="appendNumber('7')">7</button>
+        <button onclick="appendNumber('8')">8</button>
+        <button onclick="appendNumber('9')">9</button>
+        </div>
+        <div style="display:flex; justify-content: space-between;">
+            <button onclick="appendNumber('4')">4</button>
+        <button onclick="appendNumber('5')">5</button>
+        <button onclick="appendNumber('6')">6</button>
+        </div>
+        <div style="display:flex; justify-content: space-between;">
+            <button onclick="appendNumber('1')">1</button>
+        <button onclick="appendNumber('2')">2</button>
+        <button onclick="appendNumber('3')">3</button>
+        </div>
+        <div style="display:flex; justify-content: space-between;">
+            <button onclick="appendNumber('.')">.</button>
+        <button onclick="appendNumber('0')">0</button>
+        <button onclick="calculate()">=</button>
+        </div>
+        </div>
+        <div id="operators" style="background-color: #202020; display:flex; flex-direction: column; justify-content: space-between; width: 65px;">
+        <button style="background-color: #202020;" onclick="setOperator('+')">+</button>
+        <button style="background-color: #202020;" onclick="setOperator('-')">-</button>
+        <button style="background-color: #202020;" onclick="setOperator('/')">%</button>
+        <button style="background-color: #202020;" onclick="setOperator('*')">*</button>
+        
+        </div>
+</div>
+
+<script>
+var num1 = '';
+var num2 = '';
+var operator = '';
+
+function appendNumber(number) {
+    if (operator === '') {
+        num1 += number;
+        document.getElementById('result').value = num1;
+    } else {
+        num2 += number;
+        document.getElementById('result').value = ` ${num2}`;
+    }
+}
+
+function setOperator(op) {
+    if (num1 !== '') {
+        operator = op;
+        document.getElementById('result').value = `${num1} ${op} `;
+    }
+}
+
+function calculate() {
+    var result = '';
+    switch(operator) {
+        case '+':
+            result = parseFloat(num1) + parseFloat(num2);
+            break;
+        case '-':
+            result = parseFloat(num1) - parseFloat(num2);
+            break;
+        case '*':
+            result = parseFloat(num1) * parseFloat(num2);
+            break;
+        case '/':
+            result = parseFloat(num1) / parseFloat(num2);
+            break;
+        default:
+            return; 
+    }
+    
+    document.getElementById('result').value = result.toString();
+    
+   
+    num1 = '';
+    num2 = '';
+    operator = '';
+}
+
+function clearResult() {
+    document.getElementById('result').value = '';
+    
+    
+    num1 = '';
+    num2 = '';
+    operator = '';
+}
+</script>
+
+</div>
+
+</body>
+</html>
